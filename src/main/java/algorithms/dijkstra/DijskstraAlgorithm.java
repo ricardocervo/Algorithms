@@ -9,8 +9,8 @@ import algorithms.sorting.HeapSort;
 public class DijskstraAlgorithm {
 
 	List<Node> graph;
-	
-	void init() {
+
+	void initGraph() {
 		graph = new ArrayList<>();
 
 		for (int i=0; i<6; i++) {
@@ -33,6 +33,16 @@ public class DijskstraAlgorithm {
 		
 		graph.get(4).getMapAjacencies().put(graph.get(5), 6);
 	}
+
+	void test() {
+		initGraph();
+		dijkstra();
+		
+		for (Node node : graph) {
+			System.out.println(node);
+		}
+
+	}
 	
 	void dijkstra() {
 		PriorityQueue<Node> heap = new PriorityQueue<Node>();
@@ -50,15 +60,6 @@ public class DijskstraAlgorithm {
 				}
 			}
 		}
-		
-		for (Node node : graph) {
-			System.out.println(node);
-		}
-	}
-	
-	void test() {
-		init();
-		dijkstra();
 	}
 	
 	public static void main(String[] args) {
