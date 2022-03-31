@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ReverseLinkedList {
 
-	public class ListNode {
+	private class ListNode {
 		int val;
 		ListNode next;
 
