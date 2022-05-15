@@ -12,21 +12,12 @@ import org.junit.jupiter.api.Test;
 
 public class SnakedAndLadders {
     
-    class Vertex {
+    private class Vertex {
         int square;
-        boolean visited;
         List<Vertex> neighbors = new ArrayList<>();
         
-        Vertex(int square) {
-            this.square = square;
-        }
-        
-        @Override
-        public String toString() {
-            return Integer.toString(square);
-        }
+        Vertex(int square) { this.square = square; }
     }
-    
     
     public int snakesAndLadders(int[][] board) {
         return snakesAndLadders2(createBoardOneDimension(board));
@@ -55,12 +46,10 @@ public class SnakedAndLadders {
                 }
             }
         }
-        
         return distances[n-1];
     }
     
-    
-    Vertex[] buildGraph(int[] board) {
+    private Vertex[] buildGraph(int[] board) {
         Vertex[] graph = new Vertex[board.length];
         
         for (int i=0; i<board.length; i++) {
@@ -83,10 +72,6 @@ public class SnakedAndLadders {
             }
             graph[i].neighbors = neighbors;
         }
-        for (int i = 0; i < graph.length; i++) {
-            System.out.println("node: " + i + ", neighbords = " + toStr(graph[i].neighbors));
-        }
-
         return graph;
     }
     
@@ -107,31 +92,33 @@ public class SnakedAndLadders {
                     board1d[index++] = board[i][j];
                 }
             }
+            
+            reversed = !reversed;
         }
         
         return board1d;
     }
 
-//    @Test
-//    public void test1() {
-//        int[][] board = { 
-//                { -1, -1, -1, -1, -1, -1 },
-//                { -1, -1, -1, -1, -1, -1 },
-//                { -1, -1, -1, -1, -1, -1 },
-//                { -1, 35, -1, -1, 13, -1 },
-//                { -1, -1, -1, -1, -1, -1 },
-//                { -1, 15, -1, -1, -1, -1 } };
-//        
-//        int result = snakesAndLadders(board);
-//        assertEquals(4, result);
-//    }
-//
-//    @Test
-//    public void test2() {
-//        int[][] board = {{-1,-1},{-1,3}};
-//        int result = snakesAndLadders(board);
-//        assertEquals(1, result);
-//    }
+    @Test
+    public void test1() {
+        int[][] board = { 
+                { -1, -1, -1, -1, -1, -1 },
+                { -1, -1, -1, -1, -1, -1 },
+                { -1, -1, -1, -1, -1, -1 },
+                { -1, 35, -1, -1, 13, -1 },
+                { -1, -1, -1, -1, -1, -1 },
+                { -1, 15, -1, -1, -1, -1 } };
+        
+        int result = snakesAndLadders(board);
+        assertEquals(4, result);
+    }
+
+    @Test
+    public void test2() {
+        int[][] board = {{-1,-1},{-1,3}};
+        int result = snakesAndLadders(board);
+        assertEquals(1, result);
+    }
 
     @Test
     public void test3() {
@@ -144,12 +131,6 @@ public class SnakedAndLadders {
 
         int result = snakesAndLadders(board);
         assertEquals(2, result);
-    }
-    
-    String toStr(List<Vertex> list ) {
-        Vertex[] arr = new Vertex[list.size()]; 
-        list.toArray(arr);
-        return Arrays.toString(arr);
     }
     
 }
