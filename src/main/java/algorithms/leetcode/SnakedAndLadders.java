@@ -3,9 +3,10 @@ package algorithms.leetcode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,9 @@ import org.junit.jupiter.api.Test;
 public class SnakedAndLadders {
     
     private class Vertex {
-        int square;
+        boolean visited;
         List<Vertex> neighbors = new ArrayList<>();
         
-        Vertex(int square) { this.square = square; }
     }
     
     public int snakesAndLadders(int[][] board) {
@@ -25,35 +25,35 @@ public class SnakedAndLadders {
     
     public int snakesAndLadders2(int[] board) {
         Vertex[] graph = buildGraph(board);
-        return bfs(graph[0], graph[board.length -1], board.length);
+        return bfs(graph[0], graph[board.length -1]);
     }
     
-    public int bfs(Vertex root, Vertex destination, int n) {
+    public int bfs(Vertex root, Vertex destination) {
         
-        int[] distances = new int[n];
-        Arrays.fill(distances, -1);
+        Map<Vertex, Integer> mapDistances = new HashMap<>();
         
         Queue<Vertex> queue = new LinkedList<>();
         queue.add(root);
-        distances[root.square] = 0;
-        
+        root.visited = true;
+        mapDistances.put(root, 0);
         while (!queue.isEmpty()) {
             Vertex current = queue.poll();
             for (Vertex neighbor : current.neighbors) {
-                if (distances[neighbor.square] == -1) {
-                    distances[neighbor.square] = distances[current.square] + 1;
+                if (!neighbor.visited) {
+                    mapDistances.put(neighbor, mapDistances.get(current) + 1);
+                    neighbor.visited = true;
                     queue.add(neighbor);
                 }
             }
         }
-        return distances[n-1];
+        return mapDistances.get(destination);
     }
     
     private Vertex[] buildGraph(int[] board) {
         Vertex[] graph = new Vertex[board.length];
         
         for (int i=0; i<board.length; i++) {
-            graph[i] = new Vertex(i);
+            graph[i] = new Vertex();
         }
         
         for (int i=0; i<graph.length; i++) {

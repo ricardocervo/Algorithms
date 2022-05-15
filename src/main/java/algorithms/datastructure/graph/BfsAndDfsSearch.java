@@ -2,15 +2,16 @@ package algorithms.datastructure.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
 public class BfsAndDfsSearch {
 
-    private class Vertex {
+    private static class Vertex {
         int data;
         boolean visited;
         List<Vertex> neighbors = new ArrayList<>();
@@ -18,6 +19,28 @@ public class BfsAndDfsSearch {
         public Vertex(int data) {
             this.data = data;
         }
+    }
+    
+    private int bfsDistance(Vertex root, Vertex destination) {
+        
+        Map<Vertex, Integer> distances = new HashMap<>();
+        distances.put(root, 0);
+        
+        Queue<Vertex> queue = new LinkedList<>();
+        queue.add(root);
+        root.visited = true;
+        while (!queue.isEmpty()) {
+            Vertex current = queue.poll();
+            System.out.print(current.data + ", ");
+            for (Vertex neighbor : current.neighbors) {
+                if (!neighbor.visited) {
+                    queue.add(neighbor);
+                    neighbor.visited = true;
+                    distances.put(neighbor, distances.get(current) + 1);
+                }
+            }
+        }
+        return distances.get(destination);
     }
     
     private void bfs(Vertex root) {
@@ -111,6 +134,31 @@ public class BfsAndDfsSearch {
         System.out.println();
         System.out.println("DFS: ");
         program.dfs(program.graph2());
+        
+        System.out.println("\n\n======================\n\n");
+        
+        Vertex v0 = new Vertex(0);
+        Vertex v1 = new Vertex(1);
+        Vertex v2 = new Vertex(2);
+        Vertex v3 = new Vertex(3);
+        Vertex v4 = new Vertex(4);
+        Vertex v5 = new Vertex(5);
+        Vertex v6 = new Vertex(6);
+        Vertex v7 = new Vertex(7);
+
+          /*************
+                v0
+              /    \
+             v1     v2
+             /\     / \
+            v3 v4  v5  v6
+            
+          ***************/
+        v0.neighbors = Arrays.asList(v1, v2, v7);
+        v1.neighbors = Arrays.asList(v3, v4);
+        v2.neighbors = Arrays.asList(v5, v6);
+        v6.neighbors = Arrays.asList(v7);
+        System.out.println("BFS Distance: " + program.bfsDistance(v0, v7));
         
     }
 }
