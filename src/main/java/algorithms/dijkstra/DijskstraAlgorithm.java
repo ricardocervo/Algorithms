@@ -46,18 +46,13 @@ public class DijskstraAlgorithm {
 	
 	void dijkstra() {
 		PriorityQueue<Node> heap = new PriorityQueue<Node>();
-		heap.add(graph.get(0)); //add start node to the heap
 		
+		heap.addAll(graph);
 		while (!heap.isEmpty()) {
-			Node node = heap.poll(); //remove the root node from heap
-			for (Node adjacent : node.getMapAjacencies().keySet()) {
-				int distance = node.getEstimative() + node.getMapAjacencies().get(adjacent);
-				if (distance < adjacent.getEstimative()) {
-					adjacent.setEstimative(distance);
-					adjacent.setPredecessor(node);
-					heap.remove(adjacent);
-					heap.add(adjacent);
-				}
+			Node current = heap.poll(); 
+			for (Node neighbor : current.getMapAjacencies().keySet()) {
+				int distance = current.getMapAjacencies().get(neighbor);
+				neighbor.setEstimative(Math.min(neighbor.getEstimative(), current.getEstimative() + distance));
 			}
 		}
 	}
