@@ -1,7 +1,10 @@
 package algorithms.datastructure.binarytree;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class BinaryTreeTests {
 
@@ -48,12 +51,50 @@ public class BinaryTreeTests {
         inorder(tree.get(0));
     }
     
+    public void bfs(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            System.out.print(current.val + ", ");
+            if (current.left != null) queue.add(current.left);
+            if (current.right != null) queue.add(current.right);
+        }
+    }
+    
+    public void dfs(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+        while (!stack.isEmpty()) {
+            TreeNode current = stack.pop();
+            System.out.print(current.val + ", ");
+            if (current.right != null) stack.add(current.right);
+            if (current.left != null) stack.add(current.left);
+        }
+    }
+    
+    //same as preorder for trees
+    public void recursiveDfs(TreeNode root) {
+        if (root == null)
+            return;
+        System.out.print(root.val + ", ");
+        dfs(root.left);
+        dfs(root.right);
+    }
+    
     public void test2() {
-        Integer[] treeArray = { 6, 4, 9, 1, 5, null, 18, null, null, null, null, 17 };
+        Integer[] treeArray = { 6, 4, 9, 1, 5, null, 18, null, null, null, null, null, null, 17 };
         Map<Integer, TreeNode> tree = convertToTree(treeArray);
+        System.out.println("\npreorder: ");
         preorder(tree.get(0));
-        System.out.println();
+        System.out.println("\ninorder: ");
         inorder(tree.get(0));
+        System.out.println("\nbfs: ");
+        bfs(tree.get(0));
+        System.out.println("\ndfs: ");
+        dfs(tree.get(0));
+        System.out.println("\nrecursive dfs: ");
+        recursiveDfs(tree.get(0));        
     }
     
     public Map<Integer, TreeNode> convertToTree(Integer[] array) {
