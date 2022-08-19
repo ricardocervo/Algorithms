@@ -1,15 +1,5 @@
 package algorithms.leetcode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Stack;
-
-import org.junit.Test;
-
 public class ReverseLinkedList {
 
 	private class ListNode {
@@ -27,43 +17,61 @@ public class ReverseLinkedList {
 			this.val = val;
 			this.next = next;
 		}
+
+		@Override
+		public String toString() {
+			return "ListNode [val=" + val + ", next=" + next + "]";
+		}
+
+		
+		
 	}
 
 	public ListNode reverseList(ListNode head) {
-		if (head == null) {
-			return null;
-		}
-		Stack<ListNode> stack = new Stack<>();
-		ListNode pointer = head;
-		while (pointer != null) {
-			stack.add(pointer);
-			pointer = pointer.next;
-		}
-		ListNode lastNode = stack.peek();
-		while (!stack.isEmpty()) {
-			pointer = stack.pop();
-			pointer.next = stack.isEmpty() ? null : stack.peek();
-		}
-		return lastNode;
+		if (head == null || head.next == null) return head;
+		
+		ListNode pt1 = head;
+		ListNode pt2 = head.next;
+		ListNode pt3;
+		
+		pt1.next = null;
+		do {
+			pt3 = pt2.next;
+			pt2.next = pt1;		
+			pt1 = pt2;
+			pt2 = pt3;
+		} while (pt3 != null);
+		
+		return pt1;
+		
 	}
 	
-	@Test
-	public void test1() {
-		ListNode list = new ListNode(1, new ListNode(2, new ListNode(3)));
-		ListNode reversed = reverseList(list);
-		assertEquals("3, 2, 1", printList(reversed));
+	private void initTests() {
+		ListNode list = new ListNode(5, new ListNode(6, new ListNode(7, new ListNode(8)))); 
+		System.out.println(listToString(list));
+		list = reverseList(list);
+		System.out.println(listToString(list));
 	}
 	
-	public String printList(ListNode head) {
-		ListNode pointer = head;
-		String str = "";
-		while (pointer != null) {
-			if (!str.isEmpty()) {
-				str+=", ";
+	
+	String listToString(ListNode root) {
+		if (root == null) return "null";
+		String str = "[";
+		
+		ListNode pt = root;
+		while (pt != null) {
+			if (str.length() > 1) {
+				str += ", ";
 			}
-			str += pointer.val;
-			pointer = pointer.next;
+			str += pt.val;
+			pt = pt.next;
 		}
-		return str;
+		
+		return str + "]";
+		
+	}
+	
+	public static void main(String[] args) {
+		new ReverseLinkedList().initTests();
 	}
 }
