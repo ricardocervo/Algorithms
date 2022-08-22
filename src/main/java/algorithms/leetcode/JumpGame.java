@@ -5,24 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class JumpGame {
-	
+
 	public boolean canJump(int[] nums) {
+		boolean canJump = false;
 		int i = nums.length - 1;
-		while (i > 0) {
-			boolean canJumpToI = false;
+		while (i >= 1) {
 			for (int j = i - 1; j >= 0; j--) {
-				canJumpToI = nums[j] + j >= i;
-				if (canJumpToI) {
+				if (nums[j] >= i - j) {
 					i = j;
+					canJump = true;
 					break;
 				}
 			}
-			if (!canJumpToI) {
+			if (!canJump) {
 				return false;
 			}
 		}
-
-		return i == 0;
+		return true;
 	}
 
 	@Test

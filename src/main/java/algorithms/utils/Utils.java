@@ -84,8 +84,8 @@ public class Utils {
 
         listIntegers.add(root.val);
 
-        traverseInorder(root.left);
-        traverseInorder(root.right);
+        traversePreorder(root.left);
+        traversePreorder(root.right);
     }
 
     private static void traversePostorder(TreeNode root) {

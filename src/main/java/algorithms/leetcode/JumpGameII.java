@@ -7,21 +7,21 @@ import org.junit.jupiter.api.Test;
 public class JumpGameII {
 	
     public int jump(int[] nums) {
-    	int farthest = 0;
     	int l = 0;
     	int r = 0;
-    	int totalJumps = 0;
+    	int jumps = 0;
+    	int farthest = 0;
     	while (r < nums.length - 1) {
-    		for (int i = l; i<= r; i++) {
+    		for (int i = l; i <= r; i++) {
     			farthest = Math.max(farthest, i + nums[i]);
     		}
     		l = r + 1;
     		r = farthest;
-    		totalJumps++;
+    		jumps++;
     	}
-    	return totalJumps;
+    	return jumps;
     }
-
+    
 	@Test
 	public void test1() {
 		int[] nums = {2,3,1,1,4};
