@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // Java program to solve fractional Knapsack Problem
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 // Greedy approach
 public class KnapsackFractionalGreedy {

@@ -1,11 +1,10 @@
 package algorithms.leetcode;
 
-import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 

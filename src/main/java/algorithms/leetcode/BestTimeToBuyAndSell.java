@@ -2,7 +2,8 @@ package algorithms.leetcode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 
 public class BestTimeToBuyAndSell {
 	public int maxProfit(int[] prices) {

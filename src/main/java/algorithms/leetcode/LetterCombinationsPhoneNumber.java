@@ -1,16 +1,15 @@
 package algorithms.leetcode;
 
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LetterCombinationsPhoneNumber {
 
